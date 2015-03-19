@@ -11,5 +11,10 @@ LoadPlugin disk
 LoadPlugin interface
 LoadPlugin load
 LoadPlugin memory
+LoadPlugin network
+
+<Plugin network>
+	Server "{{ METRICS_HOST }}" "{{ METRICS_PORT }}"
+</Plugin>
 
 Include "/etc/collectd/collectd.d/*.conf"
