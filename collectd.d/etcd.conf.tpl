@@ -15,5 +15,11 @@ LoadPlugin curl_json
     <Key "sendAppendRequestCnt">
       Type "counter"
     </Key>
+    <Key "sendBandwidthRate">
+      Type "guage"
+    </Key>
+    <Key "sendPkgRate">
+      Type "guage"
+    </Key>
   </URL>
 </Plugin>
