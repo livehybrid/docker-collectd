@@ -7,11 +7,17 @@ ReadThreads 5
 WriteThreads 5
 
 LoadPlugin cpu
-LoadPlugin disk
 LoadPlugin interface
 LoadPlugin load
 LoadPlugin memory
 LoadPlugin network
+# LoadPlugin nginx
+
+# <Plugin "nginx">
+#   URL "https://{{ HOSTNAME }}:8433"
+#   User "stats"
+#   Password "uleePi4A"
+# </Plugin>
 
 <Plugin network>
 	Server "{{ METRICS_HOST }}" "{{ METRICS_PORT }}"
