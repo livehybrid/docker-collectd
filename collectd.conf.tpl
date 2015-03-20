@@ -20,7 +20,7 @@ LoadPlugin network
 # </Plugin>
 
 <Plugin network>
-	Server "{{ METRICS_HOST }}" "{{ METRICS_PORT }}"
+	Server "{{ METRICS_HOST }}"
 </Plugin>
 
 Include "/etc/collectd/collectd.d/*.conf"
