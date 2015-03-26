@@ -17,7 +17,7 @@ def convert_value(value):
     if value[-1].isdigit():
         return float(value)
     else:
-        num = float(value[0:-1])
+        num = float(value[0:-2])
         return num * pow(1024, exp[value[-1]])
 
 def btrfs_filesystem_stats(fs):
