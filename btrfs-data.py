@@ -23,22 +23,22 @@ def convert_value(value):
 def btrfs_filesystem_stats(fs):
     allocated = 0.0
     used = 0.0
-    btrfs = subprocess.check_output(["/usr/bin/btrfs", "fi", "df", fs]).split("\n")[0:-1]
-    for line in btrfs:
-        data = line.split(": ")[1].split(", ")
-        t = data[0].split("=")[1]
-        allocated += convert_value(t)
-        u = data[1].split("=")[1]
-        used += convert_value(u)
+    with open(fs) as btrfs:
+        for line in btrfs:
+            data = line.split(": ")[1].split(", ")
+            t = data[0].split("=")[1]
+            allocated += convert_value(t)
+            u = data[1].split("=")[1]
+            used += convert_value(u)
     df = subprocess.check_output(["df", "-B", str(blocksize), fs]).split("\n")
     total = float(df[1].split()[1]) * blocksize
 
-    fs_name = fs[1:].replace("/","-")
+    fs_name = fs.split("/")[-1]
     print("PUTVAL {}/exec-btrfs_{}/gauge-bytes_total interval={} N:{:.0f}".format(hostname, fs_name, interval, total))
     print("PUTVAL {}/exec-btrfs_{}/gauge-bytes_allocated interval={} N:{:.0f}".format(hostname, fs_name, interval, allocated))
     print("PUTVAL {}/exec-btrfs_{}/gauge-bytes_used interval={} N:{:.0f}".format(hostname, fs_name, interval, used))
  
 while True:
-    btrfs_filesystem_stats("/")
+    btrfs_filesystem_stats("/var/lib/btrfs-stats/root")
     sys.stdout.flush()
     time.sleep(interval)
